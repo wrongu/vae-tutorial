@@ -3,7 +3,6 @@ from latents import DiagonalGaussianLatent
 from priors import IsoGaussianPrior
 from likelihoods import DiagonalGaussianLikelihood
 from keras.layers import Input, Dense
-from keras.callbacks import EarlyStopping
 from data.my_mnist import img_pixels as mnist_pixels
 import os
 
@@ -19,17 +18,13 @@ def fit_vae(vae, x_train, x_test=None, epochs=100, batch=100, weights_file=None,
             vae.model.load_weights(weights_file)
             return vae
 
-    # Create an EarlyStopping callback to automatically stop training when validation error stops
-    # improving by this criterion.
-    early_stop = EarlyStopping(monitor='val_loss', min_delta=.01, patience=5)
-
     # Train the model
     vae.model.compile(loss=None, optimizer=optimizer)
     if x_test is not None:
         kwargs = {'validation_data': (x_test, None)}
     else:
         kwargs = {}
-    vae.model.fit(x_train, shuffle=True, epochs=epochs, batch_size=batch, callbacks=[early_stop], **kwargs)
+    vae.model.fit(x_train, shuffle=True, epochs=epochs, batch_size=batch, **kwargs)
 
     # Save trained model to a file if given
     if weights_file is not None:

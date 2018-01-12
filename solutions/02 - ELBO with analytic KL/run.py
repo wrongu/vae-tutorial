@@ -7,4 +7,4 @@ vae = gaussian_mnist(latent_dim=2, pixel_std=.05)
 fit_vae(vae, x_train, x_test, epochs=100, weights_file='weights.h5')
 
 # Visualize results
-render_grid(vae)
+render_grid(vae.latent.sample, vae.reconstruction)

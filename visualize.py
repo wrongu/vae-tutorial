@@ -4,14 +4,14 @@ import numpy as np
 import keras.backend as K
 
 
-def render_grid(vae):
+def render_grid(sample_var, reconstruction_var):
     # Visualize model by running the P-model forward from a grid of points in the latent space
     # ranging from -3 to +3.
     num_grid = 15
     grid_pts = np.linspace(-3, 3, num_grid)
 
     # Create a keras function that takes latent (x, y) as input and produces images as output
-    renderer = K.function([vae.latent.sample], [vae.reconstruction])
+    renderer = K.function([sample_var], [reconstruction_var])
     latent_input = np.zeros((1, 2))  # must have shape (1, 2) not (2,)
 
     # Allocate space for the final (num_grid * rows, num_grid * cols) image

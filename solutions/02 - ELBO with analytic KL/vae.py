@@ -18,7 +18,11 @@ class VAE(object):
         self.nll = -self.likelihood.log_prob(flat_input)
 
         # KL loss term is E_q(z|x) [ log q(z|x) / p(z) ] and has shape (batch,)
-        kl_loss = self.latent.kl()
+        try:
+            # Use analytic KL if it is available, or fall back on using sample KL
+            kl_loss = self.latent.analytic_kl()
+        except TypeError:
+            kl_loss = self.latent.sample_kl()
 
         # Total loss is simply sum of KL and NLL terms and has shape (batch,)
         return kl_loss + self.nll

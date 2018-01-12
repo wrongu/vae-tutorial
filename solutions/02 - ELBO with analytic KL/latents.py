@@ -18,13 +18,6 @@ class Latent(Layer):
     def compute_output_shape(self, input_shape):
         return tuple(input_shape[:-1]) + (self.dim,)
 
-    def kl(self):
-        # Use analytic KL if it is available, or fall back on using sample KL
-        try:
-            return self.analytic_kl()
-        except TypeError:
-            return self.sample_kl()
-
 
 class DiagonalGaussianLatent(Latent):
     """DiagonalGaussianLatent expects flattened input with shape (batch, dim). Internally stores

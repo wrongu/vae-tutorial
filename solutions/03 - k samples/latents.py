@@ -72,8 +72,8 @@ class DiagonalGaussianLatent(Latent):
         return -(K.sum((x_diff / variance) * x_diff, axis=-1) + log_det) / 2
 
     def sample_kl(self):
-        # Monte carlo KL estimate is simply self.log_prob - prior.log_prob
-        return self.log_prob(self.samples) - self.prior.log_prob(self.samples)
+        # Monte carlo KL estimate is the expected value over samples of self.log_prob - prior.log_prob
+        return (self.log_prob(self.samples) - self.prior.log_prob(self.samples)) / K.cast(self.k_samples, 'float32')
 
     def analytic_kl(self):
         if isinstance(self.prior, IsoGaussianPrior):

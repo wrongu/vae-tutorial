@@ -3,11 +3,11 @@ Exercise 04 - Importance Weighted Autoencoder
 
 The importance weighted autoencoder (IWAE) is a nice conceptual extension to the basic VAE framework that is surprisingly easy to implement. Conceptually, the difference is that the IWAE loss function uses the recognition model to _propose_ samples for the approximate posterior, but then weights them according to the _true_ posterior using the importance-sampling algorithm. In terms of loss function gradients, the IWAE loss is
 
-![IWAE version of ELBO gradient](images/grad_iwae.pdf)
+![IWAE version of ELBO gradient](../images/grad_iwae.png)
 
 while the VAE loss is
 
-![VAE version of ELBO gradient](images/grad_vae.pdf).
+![VAE version of ELBO gradient](../images/grad_vae.png).
 
 Note that both are interpreted as maximizing a lower bound on the log likelihood of the data (the ELBO). The IWAE objective is a _tighter bound_, which means it should yield better fits to the data.
 

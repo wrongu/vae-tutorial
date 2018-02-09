@@ -5,7 +5,7 @@ Just as deep convolutional networks are better suited for image processing than 
 
 The only code that needs to be written for this exercise is in `models.py` – fill in the `gaussian_cnn_cifar10()` function. The architecture will be very similar to the MNIST model, but with `Conv2D` layers instead of `Dense` layers. You will also need to be careful of the shape of tensors being passed to the latent layer and to the likelihood function. `Reshape` and `Flatten` layers will be useful for this.
 
-Because training will take much longer in this model, I have pre-trained weights that can be downloaded [here]() for a model with the following architecture:
+Because training will take much longer in this model, I have pre-trained weights that can be downloaded [here](https://github.com/wrongu/vae-tutorial/blob/master/solutions/05%20-%20convolution%20and%20deconvolution/weights.h5) for a model with the following architecture:
 
 ![](../images/cnn_architecture.png)
 
